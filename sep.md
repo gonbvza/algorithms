@@ -2,19 +2,35 @@
 
 ## Project chosen
 
-Name: <TODO>
+Name: algorithms
 
-URL: <TODO>
+URL: https://github.com/keon/algorithms
 
-Number of lines of code and the tool used to count it: <TODO>
+Number of lines of code: 18023
 
-Programming language: <TODO>
+Tool used to analyze: lizard
+
+Programming language: Python
 
 ## Coverage measurement
 
 ### Existing tool
 
-<Inform the name of the existing tool that was executed and how it was executed>
+The tool we used was coverage, and to be more specific we used it as the pytest --cov flag. This library executed all test files that started with "test_". The method we followed to get the coverage was the following:
+1. We forked the repository
+2. We created a virtual environment and installed the required libraries
+3. We changed any test files names that did not start with "test_" so they started with the correct prefix
+4. We ran the command 
+
+    ```
+        pytest --cov --cov-report=html
+    ```
+
+This method produced both a report in the command line and a html that we used to find the functions that were not covered. 
+
+The coverage percentage that we obtained after running this command was of 90% as shown in the following picture:
+
+
 
 <Show the coverage results provided by the existing tool with a screenshot>
 

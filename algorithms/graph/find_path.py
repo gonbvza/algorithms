@@ -3,18 +3,21 @@ Functions for finding paths in graphs.
 """
 
 # pylint: disable=dangerous-default-value
-def find_path(graph, start, end, path=[]):
+def find_path(graph, start, end, coverage_keys, path=[]):
     """
     Find a path between two nodes using recursion and backtracking.
     """
     path = path + [start]
     if start == end:
+        coverage_keys["start_is_end"] = True
         return path
     if not start in graph:
+        coverage_keys["no_start"] = True
         return None
     for node in graph[start]:
         if node not in path:
-            newpath = find_path(graph, node, end, path)
+            coverage_keys["no_node"] = True
+            newpath = find_path(graph, node, end, coverage_keys, path)
             return newpath
     return None
 
