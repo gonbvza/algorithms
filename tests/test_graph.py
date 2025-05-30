@@ -329,7 +329,7 @@ class TestFindPath(unittest.TestCase):
                  'E': ['F'],
                  'F': ['C']}
 
-        paths = find_path.find_all_path(graph, 'A', 'F')
+        paths = find_path.find_all_path(graph, 'A', 'F', {})
         print(paths)
         self.assertEqual(sorted(paths), sorted([
             ['A', 'C', 'F'],

@@ -3,7 +3,6 @@ Merge k sorted linked lists and return it as one sorted list. Analyze and descri
 """
 
 
-from heapq import heappop, heapreplace, heapify
 from queue import PriorityQueue
 
 
@@ -15,36 +14,20 @@ class ListNode(object):
         self.val = val
         self.next = None
 
-
-def merge_k_lists(lists):
-    """ Merge Lists """
-    dummy = node = ListNode(0)
-    list_h = [(n.val, n) for n in lists if n]
-    heapify(list_h)
-    while list_h:
-        _, n_val = list_h[0]
-        if n_val.next is None:
-            heappop(list_h)  # only change heap size when necessary
-        else:
-            heapreplace(list_h, (n_val.next.val, n_val.next))
-        node.next = n_val
-        node = node.next
-
-    return dummy.next
-
-
-def merge_k_lists(lists):
+def merge_k_lists(lists, coverage_keys):
     """ Merge List """
     dummy = ListNode(None)
     curr = dummy
     q = PriorityQueue()
     for node in lists:
         if node:
+            coverage_keys["is_node"] = True
             q.put((node.val, node))
     while not q.empty():
         curr.next = q.get()[1]  # These two lines seem to
         curr = curr.next  # be equivalent to :-   curr = q.get()[1]
         if curr.next:
+            coverage_keys["next"] = True
             q.put((curr.next.val, curr.next))
     return dummy.next
 
