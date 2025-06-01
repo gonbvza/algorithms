@@ -43,7 +43,8 @@ This is the coverage shown in the html
 Gonzalo Vela
 
 The files I chose where the following
-"algorithms/graph/find_path.py"
+
+#### "algorithms/graph/find_path.py"
 
 we chose to create diferent files where we wrote the code for the coverage. So the code in the find_path_coverage.py is the following:
 
@@ -264,7 +265,7 @@ This is the coverage result
 
 The second file I chose was 
 
-"algorithms/heap/merge_sorted_k_lists.py"
+#### "algorithms/heap/merge_sorted_k_lists.py"
 
 This is the code I used to test the coverage
 
@@ -496,23 +497,169 @@ This is the coverage result
 
 ### Individual tests
 
-<The following is supposed to be repeated for each group member>
+Gonzalo Vela
 
-<Group member name>
+#### "algorithms/graph/find_path.py"
 
-<Test 1>
+The coverage of the file before my test was of 32% as shown in these pictures
 
-<Show a patch (diff) or a link to a commit made in your forked repository that shows the new/enhanced test>
+![coverage-find_path-percentage](assets/coverage-find_path-percentage.jpg)
 
-<Provide a screenshot of the old coverage results (the same as you already showed above)>
+![coverage-find_path-percentage](assets/coverage-find_path-lines.jpg)
 
-<Provide a screenshot of the new coverage results>
+This is the code that I implemented to test this file
 
-<State the coverage improvement with a number and elaborate on why the coverage is improved>
+```
+from algorithms.graph import find_path
+import unittest
 
-<Test 2>
+class TestSinglePath(unittest.TestCase):
+    def setUp(self):
+        self.graph = {
+            'A': ['B', 'C'],
+            'B': ['D'],
+            'C': ['E', 'F'],
+            'D': [],
+            'E': ['B', 'D'],
+            'F': []
+        }
 
-<Provide the same kind of information provided for Test 1>
+        self.graph_without_neighbours = {
+            'A': [],
+        }
+
+    def test_find_single_path(self):
+        single_path = find_path.find_path(self.graph, 'A', 'D', {})
+        self.assertEqual(['A', 'B', 'D'], single_path)
+
+    def test_no_start(self):
+        self.assertIsNone(find_path.find_path(self.graph, '', 'D', {}))
+
+    def test_start_without_neighbours(self):
+        self.assertIsNone(find_path.find_path(self.graph_without_neighbours, 'A', 'D', {}))
+
+class TestFindAllPaths(unittest.TestCase):
+    def setUp(self):
+        self.graph = {
+            'A': ['B', 'C'],
+            'B': ['D'],
+            'C': ['E', 'F'],
+            'D': [],
+            'E': ['B', 'D'],
+            'F': []
+        }
+
+    def test_no_start(self):
+        self.assertEqual(find_path.find_all_path(self.graph, '', 'D', {}), [])
+
+class TestFindShortestPath(unittest.TestCase):
+    def setUp(self):
+        self.graph = {
+            'A': ['B', 'C'],
+            'B': ['D', 'E'],
+            'C': ['F'],
+            'D': ['F'],
+            'E': ['F'],
+            'F': []
+        }
+
+    def test_shortest(self):
+        shortest_path = find_path.find_shortest_path(self.graph, 'A', 'F', {})
+        self.assertEqual(shortest_path, ['A', 'C', 'F'])
+
+    def test_no_start(self):
+        self.assertIsNone(find_path.find_shortest_path(self.graph, '', 'D', {}), [])
+
+if __name__ == '__main__':
+    unittest.main()
+
+```
+
+This are the new coverage results 
+
+![improved-coverage](assets/improved-find-path-coverage-percentage.jpg)
+
+The coverage was improved by 70%. For the first function, three tests were done to test all of the functionality. The tests are
+- test_find_single_path. With this test we are testing the basic functionality of the function. We pass a graph and two nodes that only have one path, we test if the function returns this path. 
+- test_no_start. With this test we are testing the edge case where no start node is passed. 
+- test_start_without_neighbours. With this test we are testing the edge case were a graph is passed and the starting node has no neighbours. 
+
+For the secod function we have two tests.
+- test_shortest_path. With this test we are testing the basic functionality of the function. We pass a graph and two nodes that have many paths between them. We test that the function returns the shortes path. 
+- test_no_start. With this functino we are testing the edge case where we do not pass any start node.
+> 
+
+#### "algorithms/heap/merge_sorted_k_lists.py"
+
+The coverage of the file before my test was of 24% as shown in these pictures
+
+![coverage-find_path-percentage](assets/function_2_coverage.jpg)
+
+![coverage-find_path-percentage](assets/function_2_lines.jpg)
+
+This is the code that I implemented to test this file
+
+```
+from algorithms.heap import merge_sorted_k_lists
+import unittest
+
+class ListNode(object):
+    """ ListNode Class"""
+
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+
+def list_to_linked(lst):
+    """
+    Function to create a linked list from an array
+    """
+    if not lst:
+        return None
+    head = ListNode(lst[0])
+    current = head
+    for v in lst[1:]:
+        current.next = ListNode(v)
+        current = current.next
+    return head 
+
+def linked_to_list(node):
+    """
+    Function to create an array from a linked list
+    """
+    lst = []
+    while node:
+        lst.append(node.val)
+        node = node.next
+    return lst
+
+
+class TestSinglePath(unittest.TestCase):
+    def setUp(self):
+        self.lists = [
+            list_to_linked([1, 2, 3]),
+            list_to_linked([4, 5, 6])
+        ]
+
+        self.graph_without_neighbours = {
+            'A': [],
+        }
+
+    def test_merge_lists(self):
+        merged_lists = merge_sorted_k_lists.merge_k_lists(self.lists)
+        self.assertEqual([1, 2, 3, 4, 5, 6], linked_to_list(merged_lists))
+
+```
+
+This are the new coverage results 
+
+![improved-coverage](assets/function_2_improved.jpg)
+
+The coverage was improved by 76%. This file only had one function.
+
+As the function that has been tested uses a linked list, we had to create to helper functions that converted an arrya to a linked list and a linked list to an array
+
+We only needed one test to test the whole functionality of this function as it did not cover any of the edge cases 
 
 ### Overall
 

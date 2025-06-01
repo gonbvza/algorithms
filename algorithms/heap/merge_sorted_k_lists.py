@@ -14,7 +14,7 @@ class ListNode(object):
         self.val = val
         self.next = None
 
-def merge_k_lists(lists, coverage_keys):
+def merge_k_lists(lists, coverage_keys={}):
     """ Merge List """
     dummy = ListNode(None)
     curr = dummy

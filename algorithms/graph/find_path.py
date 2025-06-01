@@ -19,6 +19,7 @@ def find_path(graph, start, end, coverage_keys, path=[]):
             coverage_keys["no_node"] = True
             newpath = find_path(graph, node, end, coverage_keys, path)
             return newpath
+    coverage_keys["no_graph"] = True
     return None
 
 # pylint: disable=dangerous-default-value

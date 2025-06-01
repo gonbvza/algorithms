@@ -4,6 +4,7 @@ find_path_coverage = {
         "start_is_end": False,
         "no_start": False,
         "no_node": False,
+        "no_graph": False
 }
 
 find_all_path_coverage = {
@@ -35,6 +36,11 @@ def main():
         'F': []
     }
 
+    graph_with_no_neighbour = {
+        'A': [],
+    }
+
+
     print("Coverage for the function find_path")
     # Normal case
     find_path(graph, 'A', 'D', find_path_coverage, [])
@@ -45,6 +51,13 @@ def main():
     # No start case
     find_path(graph, '', 'D', find_path_coverage, [])
     print_coverage(find_path_coverage)
+    
+    print()
+
+    # No graph case
+    find_path(graph_with_no_neighbour, 'A', '', find_path_coverage, [])
+    print_coverage(find_path_coverage)
+
 
     print()
 
