@@ -3,7 +3,8 @@ from find_primitive_root_simple import *
 find_order_coverage = {
     "a_and_n_are_1": False,
     "gcd_not_1": False,
-    "order_found": False
+    "order_found": False,
+    "order_not_found": False
 }
 
 euler_totient_coverage = {

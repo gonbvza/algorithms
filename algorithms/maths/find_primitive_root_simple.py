@@ -26,6 +26,7 @@ def find_order(a, n, find_order_coverage):
         if pow(a, i) % n == 1:
             find_order_coverage["order_found"] = True
             return i
+    find_order_coverage["order_not_found"] = True
     return -1
 
 """
