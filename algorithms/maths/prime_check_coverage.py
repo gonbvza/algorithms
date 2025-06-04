@@ -20,14 +20,22 @@ def main():
     prime_check(-1, prime_check_coverage)  # Non-positive number (non_positive_or_1)
     print_coverage(prime_check_coverage)
 
+    print()
+
     prime_check(2, prime_check_coverage)   # 2 is prime (equal_2_or_3)
     print_coverage(prime_check_coverage)
+
+    print()
 
     prime_check(4, prime_check_coverage)   # 4 is not prime (even or divisible by 3)
     print_coverage(prime_check_coverage)
 
+    print()
+
     prime_check(5, prime_check_coverage)   # 5 is prime (6k±1_form)
     print_coverage(prime_check_coverage)
+
+    print()
 
     prime_check(29, prime_check_coverage)  # 29 is prime (prime exiting loop)
     print_coverage(prime_check_coverage)
